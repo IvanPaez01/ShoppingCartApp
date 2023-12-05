@@ -1,3 +1,5 @@
+package src.main.java.model;
+
 public class User {
     private String username;
     private String password; // In a real application, passwords should be securely hashed

@@ -1,3 +1,5 @@
+package src.main.java.controller;
+
 public class ShoppingCartController {
     private ShoppingCart cart;
 

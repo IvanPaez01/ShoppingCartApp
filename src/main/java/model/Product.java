@@ -1,3 +1,5 @@
+package src.main.java.model;
+
 public class Product {
     private String name;
     private double price;
