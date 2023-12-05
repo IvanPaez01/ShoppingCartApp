@@ -1,14 +1,17 @@
-package src.main.java.model;
+package main.java.model;
 
 public class Product {
     private String name;
     private double price;
     private int quantity;
 
-    public Product(String name, double price, int quantity) {
+    private int seller_ID;
+
+    public Product(String name, double price, int quantity, int seller) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+        this.seller_ID = seller;
     }
 
     // Getters and Setters
@@ -36,8 +39,20 @@ public class Product {
         this.quantity = quantity;
     }
 
+    public int getSeller_ID() {
+        return seller_ID;
+    }
+
+    public void setSeller_ID(int ID) {
+        this.seller_ID = ID;
+    }
+
     @Override
     public String toString() {
-        return name + " - $" + price + " (Qty: " + quantity + ")";
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", availableQuantity=" + quantity +
+                ", seller_ID=" + seller_ID + '}';
     }
 }
