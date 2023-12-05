@@ -1,7 +1,7 @@
 package src.main.java.controller;
 
-import model.ShoppingCart; // Import statement for ShoppingCart
-import model.Product; // Import statement for Product
+import src.main.java.model.ShoppingCart; // Import statement for ShoppingCart
+import src.main.java.model.Product; // Import statement for Product
 
 public class ShoppingCartController {
     private ShoppingCart cart;
