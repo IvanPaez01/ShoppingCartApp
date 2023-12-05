@@ -1,10 +1,13 @@
 package src.main.java.controller;
 
+import model.ShoppingCart; // Import statement for ShoppingCart
+import model.Product; // Import statement for Product
+
 public class ShoppingCartController {
     private ShoppingCart cart;
 
     public ShoppingCartController() {
-        cart = new ShoppingCart();
+        this.cart = new ShoppingCart();
     }
 
     public void addProductToCart(Product product) {
