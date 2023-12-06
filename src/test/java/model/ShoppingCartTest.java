@@ -1,7 +1,10 @@
-package src.test.java.model;
+package test.java.model;
 
+import main.java.model.Product;
+import main.java.model.ShoppingCart;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ShoppingCartTest {
@@ -11,7 +14,7 @@ public class ShoppingCartTest {
     @BeforeEach
     void setUp() {
         cart = new ShoppingCart();
-        product = new Product("Test Product", 9.99, 10);
+        product = new Product("Test Product", 9.99, 10, 3648);
     }
 
     @Test
@@ -30,6 +33,6 @@ public class ShoppingCartTest {
     @Test
     void testGetTotalPrice() {
         cart.addProduct(product);
-        assertEquals(9.99, cart.getTotalPrice());
+        assertEquals(99.9, cart.getTotalPrice());
     }
 }
