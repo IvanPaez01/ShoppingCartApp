@@ -14,7 +14,7 @@ public class ShoppingCartTest {
     @BeforeEach
     void setUp() {
         cart = new ShoppingCart();
-        product = new Product("Test Product", 9.99, 10, 3648);
+        product = new Product("Test Product", 9.99, 10, "jerry");
     }
 
     @Test
