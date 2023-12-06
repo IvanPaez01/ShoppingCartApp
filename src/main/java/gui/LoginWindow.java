@@ -1,9 +1,16 @@
+package main.java.gui;
+
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.ActionListener;
 
 public class LoginWindow {
+    public JLabel userLabel;
+    public JTextField userText;
+    public JLabel passwordLabel;
+    public JPasswordField passwordText;
+    public JButton loginButton;
 
-    public static void main(String[] args) {
+    public LoginWindow() {
         // Frame setup
         JFrame frame = new JFrame("Login");
         frame.setSize(300, 150);
@@ -18,39 +25,35 @@ public class LoginWindow {
         frame.setVisible(true);
     }
 
-    private static void placeComponents(JPanel panel) {
+    private void placeComponents(JPanel panel) {
         panel.setLayout(null);
 
         // User label and text field
-        JLabel userLabel = new JLabel("User");
+        userLabel = new JLabel("User");
         userLabel.setBounds(10, 10, 80, 25);
         panel.add(userLabel);
 
-        JTextField userText = new JTextField(20);
+        userText = new JTextField(20);
         userText.setBounds(100, 10, 160, 25);
         panel.add(userText);
 
         // Password label and password field
-        JLabel passwordLabel = new JLabel("Password");
+        passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(10, 40, 80, 25);
         panel.add(passwordLabel);
 
-        JPasswordField passwordText = new JPasswordField(20);
+        passwordText = new JPasswordField(20);
         passwordText.setBounds(100, 40, 160, 25);
         panel.add(passwordText);
 
         // Login button
-        JButton loginButton = new JButton("login");
+        loginButton = new JButton("login");
         loginButton.setBounds(10, 80, 80, 25);
         panel.add(loginButton);
+        };
 
-        // Action listener for the login button
-        loginButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String username = userText.getText();
-                char[] password = passwordText.getPassword();
-                // Insert authentication logic here
-            }
-        });
+    public void addListener(ActionListener e)
+    {
+        loginButton.addActionListener(e);
     }
 }
