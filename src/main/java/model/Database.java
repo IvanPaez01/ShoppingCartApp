@@ -6,9 +6,10 @@ import java.util.NoSuchElementException;
 
 public class Database
 {
+    private static Database data = null;
     private ArrayList<Product> inventory;
     private ArrayList<User> users;
-    public Database()
+    private Database()
     {
         inventory = new ArrayList<>();
         users = new ArrayList<>();
@@ -16,8 +17,17 @@ public class Database
         importData("inventory");
     }
 
+    public static Database getInstance()
+    {
+        if(data == null)
+        {
+            data = new Database();
+        }
+        return data;
+    }
 
-    public void addProduct(String name, double price, int quantity, int seller)
+
+    public void addProduct(String name, double price, int quantity, String seller)
     {
         Product product = new Product(name,price,quantity,seller);
         inventory.add(product);
