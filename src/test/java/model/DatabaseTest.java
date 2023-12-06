@@ -5,6 +5,7 @@ import main.java.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javax.xml.crypto.Data;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,10 +18,11 @@ public class DatabaseTest {
     {
         database = new Database();
         database.addProduct("Phone",150,2,3648);
+        database.createUser("jerry","jerryrocks",true);
     }
 
     @Test
-    public void testCreateUser()
+    public void testGetCreateUser()
     {
         String username = "test";
         String password = "password";
@@ -31,15 +33,15 @@ public class DatabaseTest {
     }
 
     @Test
-    public void testGetUser()
+    public void testImportExport()
     {
-        String username = "test";
-        String password = "password";
-        database.createUser(username, password, false);
-        User user = database.getUser(username, password);
-        assertNotNull(user);
-        assertEquals(username, user.getUsername());
-        assertEquals(password, user.getPassword());
+        database.exportData("inventory");
+        database.exportData("user");
+
+        Database freshDatabase = new Database();
+        User freshjerry = freshDatabase.getUser("jerry","jerryrocks");
+        User jerry = database.getUser("jerry","jerryrocks");
+        assertEquals(jerry, freshjerry);
     }
 
     @Test
