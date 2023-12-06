@@ -2,7 +2,6 @@ package main.java.model;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 public class Database
@@ -13,10 +12,16 @@ public class Database
     {
         inventory = new ArrayList<>();
         users = new ArrayList<>();
-        importData("users");
+        importData("user");
         importData("inventory");
     }
 
+
+    public void addProduct(String name, double price, int quantity, int seller)
+    {
+        Product product = new Product(name,price,quantity,seller);
+        inventory.add(product);
+    }
     public void createUser(String username, String password, boolean isSeller)
     {
         User new_user = new User(username,password,isSeller);
@@ -26,8 +31,8 @@ public class Database
             {
                 throw(new IllegalArgumentException());
             }
-            users.add(new_user);
         }
+        users.add(new_user);
 
     }
 
@@ -52,27 +57,24 @@ public class Database
         return null;
     }
 
-    private void importData(String type)
+    public void importData(String type)
     {
-        File file;
-        ObjectInputStream in;
+        File file = new File(type + ".ser");
         try
         {
-            switch (type)
-            {
-                case ("inventory"):
-                    file = new File("inventory.ser");
-                    file.createNewFile();
-                    in = new ObjectInputStream(new FileInputStream(file));
-                    inventory = (ArrayList) in.readObject();
-                    break;
+            file.createNewFile();
+            if(file.length() != 0) {
+                ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+                switch (type) {
+                    case ("inventory"):
+                        inventory = (ArrayList) in.readObject();
+                        break;
 
-                case ("user"):
-                    file = new File("users.ser");
-                    file.createNewFile();
-                    in = new ObjectInputStream(new FileInputStream(file));
-                    users = (ArrayList) in.readObject();
-                    break;
+                    case ("user"):
+                        in = new ObjectInputStream(new FileInputStream(file));
+                        users = (ArrayList) in.readObject();
+                        break;
+                }
             }
         }
         catch (ClassNotFoundException e)
@@ -87,28 +89,22 @@ public class Database
         }
     }
 
-    private void exportData(String type)
+    public void exportData(String type)
     {
-        File file;
-        ObjectOutputStream out;
+        File file = new File(type + ".ser");
         try
         {
-            switch(type)
-            {
-                case("inventory"):
-                    file = new File("inventory.ser");
-                    file.createNewFile();
-                    out = new ObjectOutputStream(new FileOutputStream(file));
-                    out.writeObject(inventory);
-                    break;
+            file.createNewFile();
 
-                case("user"):
-                    file = new File("users.ser");
-                    file.createNewFile();
-                    out = new ObjectOutputStream(new FileOutputStream(file));
-                    out.writeObject(users);
-                    break;
+                ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
+                switch (type) {
+                    case ("inventory"):
+                        out.writeObject(inventory);
+                        break;
 
+                    case ("user"):
+                        out.writeObject(users);
+                        break;
             }
         }
         catch (FileNotFoundException e)
