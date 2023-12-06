@@ -1,12 +1,14 @@
-
+package main.java.gui;
 // Import statements
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ProductBrowser {
 
-    public static void main(String[] args) {
+    public void open() {
         // Frame setup
         JFrame frame = new JFrame("Product Browser");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

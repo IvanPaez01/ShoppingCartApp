@@ -1,13 +1,16 @@
 package main.java.model;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable
+{
     private String name;
     private double price;
     private int quantity;
 
-    private int seller_ID;
+    private String seller_ID;
 
-    public Product(String name, double price, int quantity, int seller) {
+    public Product(String name, double price, int quantity, String seller) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -39,11 +42,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public int getSeller_ID() {
+    public String getSeller_ID() {
         return seller_ID;
     }
 
-    public void setSeller_ID(int ID) {
+    public void setSeller_ID(String ID) {
         this.seller_ID = ID;
     }
 

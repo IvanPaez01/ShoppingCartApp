@@ -5,7 +5,6 @@ import main.java.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.crypto.Data;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;

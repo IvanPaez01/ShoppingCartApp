@@ -2,14 +2,14 @@ package main.java.controller;
 
 import main.java.gui.InventoryPanel;
 import main.java.gui.LoginWindow;
-import main.java.gui.ProductBrowser;
+import main.java.gui.*;
 import main.java.model.Database;
 import main.java.model.User;
 
 public class AppStart
 {
     public static void main(String[] args) {
-        Database data = new Database();
+        Database data = Database.getInstance();
         LoginWindow login = new LoginWindow();
         ProductBrowser productBrowser = new ProductBrowser();
         InventoryPanel inventoryPanel = new InventoryPanel();
