@@ -27,12 +27,33 @@ public class Database
     }
 
 
+    public void updateProduct(String name, String new_name, double price, int quantity, String seller)
+    {
+        if(new_name == null){new_name = name;}
+        for (Product product : inventory)
+        {
+            if (product.getSeller_ID().equals(seller) && product.getName().equals(name))
+            {
+                product.setName(new_name);
+                product.setPrice(price);
+                product.setQuantity(quantity);
+            }
+        }
+    }
     public void addProduct(String name, double price, int quantity, String seller)
     {
         Product product = new Product(name,price,quantity,seller);
-        inventory.add(product);
+        // Tests if the exact item exists
+        if(!inventory.contains(product))
+        {
+            // Tests if a variant of the item exists, reroutes function if so
+            updateProduct(name,null,price,quantity,seller);
+
+            // Adds product
+            inventory.add(product);
+        }
     }
-    public void createUser(String username, String password, boolean isSeller)
+    public void createUser(String username, String password, boolean isSeller) throws IllegalArgumentException
     {
         User new_user = new User(username,password,isSeller);
         for (User user : users)
