@@ -5,38 +5,42 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
 
-public class ProductBrowser {
+public class ProductBrowser extends WindowTemplate{
 
-    public void open() {
+    JPanel panel;
+    JScrollPane productPane;
+    JList<String> productList;
+    JButton addToCartButton;
+
+    public void initUI(JFrame frame) {
         // Frame setup
-        JFrame frame = new JFrame("Product Browser");
+        frame.setTitle("Product Browser");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 400);
 
         // Main panel
-        JPanel panel = new JPanel(new BorderLayout());
+        panel = new JPanel(new BorderLayout());
         frame.add(panel);
 
         // Product list (mock data)
         String[] products = { "Product 1", "Product 2", "Product 3" };
-        JList<String> productList = new JList<>(products);
-        panel.add(new JScrollPane(productList), BorderLayout.CENTER);
+        productList = new JList<>(products);
+        productPane = new JScrollPane(productList);
+        panel.add(productPane, BorderLayout.CENTER);
 
         // Add to cart button
-        JButton addToCartButton = new JButton("Add to Cart");
+        addToCartButton = new JButton("Add to Cart");
         panel.add(addToCartButton, BorderLayout.SOUTH);
+    }
+    public void addActionListener(ActionListener e)
+    {
+        addToCartButton.addActionListener(e);
+    }
 
-        // Frame visibility
-        frame.setVisible(true);
+    @Override
+    public void update(Observable o, Object arg) {
 
-        // Listener for add to cart button
-        addToCartButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Add selected product to cart
-                String selectedProduct = productList.getSelectedValue();
-                // Implement add to cart logic
-            }
-        });
     }
 }

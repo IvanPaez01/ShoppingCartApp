@@ -3,40 +3,41 @@ package main.java.gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Observable;
 
-public class CheckoutWindow extends JFrame {
+public class CheckoutWindow extends WindowTemplate {
     private JTextArea checkoutArea;
     private JButton payButton;
 
     public CheckoutWindow() {
-        setTitle("Checkout");
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        initUI();
     }
 
-    private void initUI() {
+    public void initUI(JFrame frame) {
+        frame.setTitle("Checkout");
+        frame.setSize(300, 200);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         checkoutArea = new JTextArea("Review your items here...");
         checkoutArea.setEditable(false);
 
         payButton = new JButton("Pay");
-        payButton.addActionListener(e -> performPayment());
+        payButton.addActionListener(e -> performPayment(frame));
 
-        getContentPane().add(new JScrollPane(checkoutArea), BorderLayout.CENTER);
-        getContentPane().add(payButton, BorderLayout.SOUTH);
+        frame.getContentPane().add(new JScrollPane(checkoutArea), BorderLayout.CENTER);
+        frame.getContentPane().add(payButton, BorderLayout.SOUTH);
     }
 
-    private void performPayment() {
+    @Override
+    public void addActionListener(ActionListener e) {
+
+    }
+
+    public void performPayment(JFrame frame) {
         // Logic to handle payment
-        JOptionPane.showMessageDialog(this, "Payment Successful!", "Payment", JOptionPane.INFORMATION_MESSAGE);
-        this.dispose(); // Close the checkout window
+        JOptionPane.showMessageDialog(frame, "Payment Successful!", "Payment", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    // Main method for testing
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            CheckoutWindow window = new CheckoutWindow();
-            window.setVisible(true);
-        });
+    @Override
+    public void update(Observable o, Object arg)
+    {
     }
 }
