@@ -2,8 +2,10 @@ package main.java.gui;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.util.Observable;
 
-public class LoginWindow {
+public class LoginWindow extends WindowTemplate {
+    public JPanel panel;
     public JLabel userLabel;
     public JTextField userText;
     public JLabel passwordLabel;
@@ -11,21 +13,20 @@ public class LoginWindow {
     public JButton loginButton;
 
     public LoginWindow() {
-        // Frame setup
-        JFrame frame = new JFrame("Login");
+        panel = new JPanel();
+        userLabel = new JLabel();
+        userText = new JTextField();
+        passwordLabel = new JLabel();
+        passwordText = new JPasswordField();
+        loginButton = new JButton();
+    }
+
+    public void initUI(JFrame frame) {
+        frame.setTitle("Login");
         frame.setSize(300, 150);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Panel setup
-        JPanel panel = new JPanel();
         frame.add(panel);
-        placeComponents(panel);
-
-        // Make frame visible
-        frame.setVisible(true);
-    }
-
-    private void placeComponents(JPanel panel) {
         panel.setLayout(null);
 
         // User label and text field
@@ -52,8 +53,14 @@ public class LoginWindow {
         panel.add(loginButton);
         };
 
-    public void addListener(ActionListener e)
+    public void addActionListener(ActionListener e)
     {
         loginButton.addActionListener(e);
+    }
+
+    @Override
+    public void update(Observable o, Object arg)
+    {
+
     }
 }

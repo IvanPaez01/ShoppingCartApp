@@ -3,8 +3,9 @@ package main.java.model;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.Observable;
 
-public class Database
+public class Database extends Observable
 {
     private static Database data = null;
     private ArrayList<Product> inventory;
