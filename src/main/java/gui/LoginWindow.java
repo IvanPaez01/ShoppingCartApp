@@ -4,7 +4,15 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 
+/**
+ * @author Ivan Paez
+ * @author Justin Knight
+ * The LoginWindow class represents the graphical user interface for user login.
+ * It extends the WindowTemplate class and implements ActionListener for handling login button clicks.
+ */
 public class LoginWindow extends WindowTemplate {
+
+    // Components for the login window
     public JPanel panel;
     public JLabel userLabel;
     public JTextField userText;
@@ -12,6 +20,9 @@ public class LoginWindow extends WindowTemplate {
     public JPasswordField passwordText;
     public JButton loginButton;
 
+    /**
+     * Constructs a LoginWindow instance and initializes its components.
+     */
     public LoginWindow() {
         panel = new JPanel();
         userLabel = new JLabel();
@@ -21,6 +32,11 @@ public class LoginWindow extends WindowTemplate {
         loginButton = new JButton();
     }
 
+    /**
+     * Initializes the user interface components for the LoginWindow.
+     *
+     * @param frame The JFrame to which the components will be added
+     */
     public void initUI(JFrame frame) {
         frame.setTitle("Login");
         frame.setSize(300, 150);
@@ -51,16 +67,25 @@ public class LoginWindow extends WindowTemplate {
         loginButton = new JButton("login");
         loginButton.setBounds(10, 80, 80, 25);
         panel.add(loginButton);
-        };
+    }
 
-    public void addActionListener(ActionListener e)
-    {
+    /**
+     * Adds an ActionListener to the loginButton component.
+     *
+     * @param e ActionListener that triggers on login
+     */
+    public void addActionListener(ActionListener e) {
         loginButton.addActionListener(e);
     }
 
+    /**
+     * This method is not used in LoginWindow
+     *
+     * @param o   The Observable object (not used)
+     * @param arg The argument passed to notifyObservers (not used)
+     */
     @Override
-    public void update(Observable o, Object arg)
-    {
-
+    public void update(Observable o, Object arg) {
+        // Unused
     }
 }
