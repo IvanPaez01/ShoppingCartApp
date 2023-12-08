@@ -1,7 +1,5 @@
 package main.java.model;
 
-import main.java.gui.DatabaseObserver;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -9,9 +7,7 @@ import java.util.Observable;
 
 public class Database extends Observable
 {
-
     private static Database data = null;
-    private static final DatabaseObserver observer = DatabaseObserver.getInstance();
     private ArrayList<Product> inventory;
     private ArrayList<User> users;
     private Database()
