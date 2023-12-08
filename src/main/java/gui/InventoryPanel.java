@@ -15,6 +15,7 @@ public class InventoryPanel extends WindowTemplate
     private JPanel rootpanel;
 
     private InventoryModel model;
+    private JButton button;
 
 
     public void initUI(JFrame frame) {
@@ -32,10 +33,12 @@ public class InventoryPanel extends WindowTemplate
         table1.setCellSelectionEnabled(true);
         table1.setFillsViewportHeight(false);
         scrollPane1.setViewportView(table1);
+        button = new JButton("Add Product");
         final JLabel label1 = new JLabel();
         label1.setHorizontalAlignment(0);
         label1.setText("Your Products");
         panel1.add(label1, BorderLayout.NORTH);
+        panel1.add(button, BorderLayout.SOUTH);
         frame.setContentPane(rootpanel);
         frame.pack();
     }
@@ -43,7 +46,7 @@ public class InventoryPanel extends WindowTemplate
     @Override
     public void addActionListener(ActionListener e)
     {
-
+        button.addActionListener(e);
     }
 
     public JComponent getRootPanel() {
@@ -52,7 +55,7 @@ public class InventoryPanel extends WindowTemplate
 
     @Override
     public void update(Observable o, Object arg) {
-        model.update();
+        model.fireTableDataChanged();
         super.refresh();
 
     }

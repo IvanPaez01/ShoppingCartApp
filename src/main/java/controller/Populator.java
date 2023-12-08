@@ -17,8 +17,6 @@ public class Populator
             pop.populateUsers(data, user_file);
             File product_file = new File("sample_products.txt");
             pop.populateInventory(data, product_file);
-
-        {}
     }
 
     public void populateUsers(Database data, File file)

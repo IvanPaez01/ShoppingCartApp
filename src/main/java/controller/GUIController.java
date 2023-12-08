@@ -4,6 +4,7 @@ import main.java.gui.WindowTemplate;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.*;
 
 import main.java.gui.*;
 import main.java.model.Database;
@@ -24,6 +25,10 @@ public class GUIController
         pages.add(new ShoppingCartWindow());
         pages.add(new CheckoutWindow());
         pages.add(new InventoryPanel());
+        pages.add(new ProductPanel());
+        data.addObserver(pages.get(4));
+        data.addObserver(pages.get(5));
+
         pageIndex = 0;
     }
 
@@ -67,12 +72,15 @@ public class GUIController
             login.addActionListener(e -> {
                 String username = login.userText.getText();
                 String password = new String(login.passwordText.getPassword());
+                data.setActiveUser(username);
                 User user = data.getUser(username, password);
                 if (user == null) {} else {
                     if (user.isSeller()) {
-                        drawPage(4);
-                    } else {
+                        setPageIndex(2);
                         drawPage(2);
+                    } else {
+                        setPageIndex(4);
+                        drawPage(4);
                     }
 
                 }
@@ -83,7 +91,6 @@ public class GUIController
         {
             login.addActionListener(e -> {
                 String username = login.userText.getText();
-                data.setActiveUser(username);
                 String password = new String(login.passwordText.getPassword());
                 User user = data.getUser(username, password);
                 if (user == null) {} else {
@@ -97,13 +104,26 @@ public class GUIController
 
             });
         }
-        public void addCartListener (LoginWindow login)
+        public void addCartListener (LoginWindow cart)
         {
 
         }
         public void addInventoryListener (InventoryPanel inventory)
         {
+            inventory.addActionListener(e -> {
+                    setPageIndex(5);
+                    drawPage(5);});
+        }
 
+        public void addProductBrowserListener (ProductPanel product)
+        {
+            product.addActionListener(e -> {
+                // Retrieve input values
+                String productName = product.productNameField.getText();
+                int quantity = Integer.parseInt(product.quantityField.getText());
+                double cost = Double.parseDouble(product.costField.getText());
+                data.addProduct(productName,cost,quantity, data.getActiveUser());
+            });
         }
 
         public void addBrowserListener (ProductBrowser browser)
@@ -124,6 +144,8 @@ public class GUIController
                 case 3:
                     break;
                 case 4: addInventoryListener((InventoryPanel) getCurrentPage());
+                break;
+                case 5: addProductBrowserListener((ProductPanel) getCurrentPage());
                 break;
             }
         }

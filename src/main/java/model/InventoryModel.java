@@ -10,6 +10,7 @@ public class InventoryModel extends AbstractTableModel
 
     public InventoryModel()
     {
+        items = new ArrayList<>();
         update();
     }
 
@@ -49,7 +50,16 @@ public class InventoryModel extends AbstractTableModel
     }
     public void update()
     {
-        items = Database.getInstance().getInventory();
+        ArrayList<Product> all_items = Database.getInstance().getInventory();
+        for(int i = 0;i<all_items.size();i++)
+        {
+            if(all_items.get(i).getSeller_ID().equals(Database.getInstance().getActiveUser()))
+            {
+                items.add(all_items.get(i));
+                all_items.remove(i);
+                i--;
+            }
+        }
     }
     @Override
     public String getColumnName(int col)

@@ -16,8 +16,7 @@ public class Database extends Observable
     {
         inventory = new ArrayList<>();
         users = new ArrayList<>();
-        importData("user");
-        importData("inventory");
+        activeUser = new String();
     }
 
     public static Database getInstance()
@@ -25,6 +24,8 @@ public class Database extends Observable
         if(data == null)
         {
             data = new Database();
+            data.importData("user");
+            data.importData("inventory");
         }
         return data;
     }
@@ -33,7 +34,7 @@ public class Database extends Observable
     public void updateProduct(String name, String new_name, double price, int quantity, String seller)
     {
         if(new_name == null){new_name = name;}
-        for (Product product : inventory)
+        for (Product product : data.inventory)
         {
             if (product.getSeller_ID().equals(seller) && product.getName().equals(name))
             {
@@ -42,31 +43,34 @@ public class Database extends Observable
                 product.setQuantity(quantity);
             }
         }
+        notifyObservers();
     }
     public void addProduct(String name, double price, int quantity, String seller)
     {
         Product product = new Product(name,price,quantity,seller);
         // Tests if the exact item exists
-        if(!inventory.contains(product))
+        if(!data.inventory.contains(product))
         {
             // Tests if a variant of the item exists, reroutes function if so
             updateProduct(name,null,price,quantity,seller);
-
-            // Adds product
-            inventory.add(product);
         }
+        // Adds product
+        data.inventory.add(product);
+        setChanged();
+        notifyObservers();
+        clearChanged();
     }
     public void createUser(String username, String password, boolean isSeller) throws IllegalArgumentException
     {
         User new_user = new User(username,password,isSeller);
-        for (User user : users)
+        for (User user : data.users)
         {
             if (user.getUsername().equals(username))
             {
                 throw(new IllegalArgumentException());
             }
         }
-        users.add(new_user);
+        data.users.add(new_user);
 
     }
 
@@ -81,7 +85,7 @@ public class Database extends Observable
     }
     private User verifyCredentials(String username, String password)
     {
-        for(User user : users)
+        for(User user : data.users)
         {
             if(user.getUsername().equals(username) && user.getPassword().equals(password))
             {
@@ -101,12 +105,14 @@ public class Database extends Observable
                 ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
                 switch (type) {
                     case ("inventory"):
-                        inventory = (ArrayList) in.readObject();
+                        data.inventory = (ArrayList) in.readObject();
+                        in.close();
                         break;
 
                     case ("user"):
                         in = new ObjectInputStream(new FileInputStream(file));
-                        users = (ArrayList) in.readObject();
+                        data.users = (ArrayList) in.readObject();
+                        in.close();
                         break;
                 }
             }
@@ -133,11 +139,15 @@ public class Database extends Observable
                 ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
                 switch (type) {
                     case ("inventory"):
-                        out.writeObject(inventory);
+                        out.writeObject(data.inventory);
+                        out.flush();
+                        out.close();
                         break;
 
                     case ("user"):
-                        out.writeObject(users);
+                        out.writeObject(data.users);
+                        out.flush();
+                        out.close();
                         break;
             }
         }
@@ -155,17 +165,17 @@ public class Database extends Observable
 
     public ArrayList<Product> getInventory()
     {
-        return inventory;
+        return data.inventory;
     }
 
     public String getActiveUser()
     {
-        return activeUser;
+        return data.activeUser;
     }
 
     public void setActiveUser(String user)
     {
-        activeUser = user;
+        data.activeUser = user;
     }
 
 }
