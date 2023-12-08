@@ -14,15 +14,20 @@ public abstract class WindowTemplate implements Observer
         window = getInstance();
         window.getContentPane().removeAll();
         initUI(window);
-        window.validate();
-        window.repaint();
-        window.setVisible(true);
+        refresh();
     }
 
     private JFrame getInstance()
     {
         if(window == null){window = new JFrame();}
         return window;
+    }
+
+    public void refresh()
+    {
+        window.validate();
+        window.repaint();
+        window.setVisible(true);
     }
 
 

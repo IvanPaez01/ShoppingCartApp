@@ -5,36 +5,23 @@ import main.java.model.Product;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class InventoryPanel
+public class InventoryPanel extends WindowTemplate
 {
     private JTable table1;
     private JPanel rootpanel;
 
-    private void createUIComponents() {
-        ArrayList<Product> items = new ArrayList<>();
-        //TODO: 3948 needs to be dynamic ID from observer
-        InventoryModel model = new InventoryModel(items);
-        table1 = new JTable(model);
-    }
+    private InventoryModel model;
 
-    public void open(){
-        JFrame frame = new JFrame("InventoryPanel");
-        frame.setContentPane(new InventoryPanel().rootpanel);
+
+    public void initUI(JFrame frame) {
+        frame.setTitle("InventoryPanel");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
-
-    {
-        initUI();
-    }
-
-
-    private void initUI() {
-        createUIComponents();
+        model = new InventoryModel();
+        table1 = new JTable(model);
         rootpanel = new JPanel();
         rootpanel.setLayout(new BorderLayout(0, 0));
         final JPanel panel1 = new JPanel();
@@ -49,10 +36,24 @@ public class InventoryPanel
         label1.setHorizontalAlignment(0);
         label1.setText("Your Products");
         panel1.add(label1, BorderLayout.NORTH);
+        frame.setContentPane(rootpanel);
+        frame.pack();
+    }
+
+    @Override
+    public void addActionListener(ActionListener e)
+    {
+
     }
 
     public JComponent getRootPanel() {
         return rootpanel;
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        model.update();
+        super.refresh();
+
+    }
 }

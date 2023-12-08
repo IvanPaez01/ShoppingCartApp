@@ -8,9 +8,9 @@ public class InventoryModel extends AbstractTableModel
     ArrayList<Product> items;
     String[] headers = {"Name","Price","Quantity"};
 
-    public InventoryModel(ArrayList<Product> items)
+    public InventoryModel()
     {
-        this.items = new ArrayList<>(items);
+        update();
     }
 
     @Override
@@ -47,10 +47,15 @@ public class InventoryModel extends AbstractTableModel
         };
         fireTableCellUpdated(row, col);
     }
-
+    public void update()
+    {
+        items = Database.getInstance().getInventory();
+    }
     @Override
     public String getColumnName(int col)
     {
         return headers[col];
     }
 }
+
+

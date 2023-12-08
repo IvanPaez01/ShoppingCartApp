@@ -10,6 +10,8 @@ public class Database extends Observable
     private static Database data = null;
     private ArrayList<Product> inventory;
     private ArrayList<User> users;
+
+    private String activeUser;
     private Database()
     {
         inventory = new ArrayList<>();
@@ -149,6 +151,21 @@ public class Database extends Observable
             System.out.print("Error while writing data : " + ioe);
             ioe.printStackTrace();
         }
+    }
+
+    public ArrayList<Product> getInventory()
+    {
+        return inventory;
+    }
+
+    public String getActiveUser()
+    {
+        return activeUser;
+    }
+
+    public void setActiveUser(String user)
+    {
+        activeUser = user;
     }
 
 }

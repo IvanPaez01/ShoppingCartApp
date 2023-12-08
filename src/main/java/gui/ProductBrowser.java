@@ -40,7 +40,8 @@ public class ProductBrowser extends WindowTemplate{
     }
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void update(Observable o, Object arg)
+    {
 
     }
 }

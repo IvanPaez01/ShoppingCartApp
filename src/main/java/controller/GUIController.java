@@ -2,6 +2,7 @@ package main.java.controller;
 
 import main.java.gui.WindowTemplate;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import main.java.gui.*;
@@ -22,6 +23,7 @@ public class GUIController
         pages.add(new ProductBrowser());
         pages.add(new ShoppingCartWindow());
         pages.add(new CheckoutWindow());
+        pages.add(new InventoryPanel());
         pageIndex = 0;
     }
 
@@ -34,7 +36,7 @@ public class GUIController
         this.pageIndex = pageIndex;
     }
 
-    public Object getCurrentPage()
+    public WindowTemplate getCurrentPage()
     {
         return getPage(pageIndex);
     }
@@ -42,25 +44,89 @@ public class GUIController
     public void drawPage()
     {
         getPage(pageIndex).load();
+        addListener();
     }
 
-    public void addLoginListener ()
+    public void drawPage(int index)
     {
-        LoginWindow login = (LoginWindow) getCurrentPage();
+        getPage(index).load();
+        addListener();
+    }
+
+    public void addListener()
+    {
+        ActionListenerBuilder builder = new ActionListenerBuilder();
+        builder.addListener(pageIndex);
+    }
+
+
+    class ActionListenerBuilder
+    {
+        public void addLoginListener (LoginWindow login)
+        {
             login.addActionListener(e -> {
-            String username = login.userText.getText();
-            String password = new String(login.passwordText.getPassword());
-            User user = data.getUser(username, password);
-            if (user == null) {} else {
-                if (user.isSeller()) {
-                    getPage(1).load();
-                } else {
-                    getPage(2).load();
+                String username = login.userText.getText();
+                String password = new String(login.passwordText.getPassword());
+                User user = data.getUser(username, password);
+                if (user == null) {} else {
+                    if (user.isSeller()) {
+                        drawPage(4);
+                    } else {
+                        drawPage(2);
+                    }
+
                 }
 
-            }
+            });
+        }
+        public void addBrowserListener (LoginWindow login)
+        {
+            login.addActionListener(e -> {
+                String username = login.userText.getText();
+                data.setActiveUser(username);
+                String password = new String(login.passwordText.getPassword());
+                User user = data.getUser(username, password);
+                if (user == null) {} else {
+                    if (user.isSeller()) {
+                        getPage(1).load();
+                    } else {
+                        getPage(2).load();
+                    }
 
-        });
+                }
+
+            });
+        }
+        public void addCartListener (LoginWindow login)
+        {
+
+        }
+        public void addInventoryListener (InventoryPanel inventory)
+        {
+
+        }
+
+        public void addBrowserListener (ProductBrowser browser)
+        {
+
+        }
+
+        public void addListener(int index)
+        {
+            switch(index)
+            {
+                case 0: addLoginListener((LoginWindow) getCurrentPage());
+                break;
+                case 1:
+                break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4: addInventoryListener((InventoryPanel) getCurrentPage());
+                break;
+            }
+        }
     }
 }
 
