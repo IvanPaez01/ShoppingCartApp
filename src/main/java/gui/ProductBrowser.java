@@ -1,19 +1,29 @@
 package main.java.gui;
+
 // Import statements
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 
-public class ProductBrowser extends WindowTemplate{
+/**
+ * The ProductBrowser class represents the graphical user interface for browsing products.
+ * It extends the WindowTemplate class and implements ActionListener for handling user actions.
+ */
+public class ProductBrowser extends WindowTemplate {
 
+    // Components for the product browser
     JPanel panel;
     JScrollPane productPane;
     JList<String> productList;
     JButton addToCartButton;
 
+    /**
+     * Initializes the user interface components for the ProductBrowser.
+     *
+     * @param frame The JFrame to which the components will be added
+     */
     public void initUI(JFrame frame) {
         // Frame setup
         frame.setTitle("Product Browser");
@@ -34,13 +44,26 @@ public class ProductBrowser extends WindowTemplate{
         addToCartButton = new JButton("Add to Cart");
         panel.add(addToCartButton, BorderLayout.SOUTH);
     }
-    public void addActionListener(ActionListener e)
-    {
+
+    /**
+     * Overrides the addActionListener method from the WindowTemplate.
+     * Adds an ActionListener to the addToCartButton component.
+     *
+     * @param e The ActionListener to be added to the addToCartButton
+     */
+    public void addActionListener(ActionListener e) {
         addToCartButton.addActionListener(e);
     }
 
+    /**
+     * Overrides the update method from the Observable class.
+     * This method is not used in ProductBrowser, as there are no observers to notify.
+     *
+     * @param o   The Observable object (not used)
+     * @param arg The argument passed to notifyObservers (not used)
+     */
     @Override
     public void update(Observable o, Object arg) {
-
+        // Not used in ProductBrowser
     }
 }
